@@ -7,20 +7,11 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
+
 import { type Slide } from 'yet-another-react-lightbox';
+import { Loader2 } from 'lucide-react';
 
 const Lightbox = dynamic(() => import('@/components/lightbox'));
-
-// export type YARLType = {
-// 	title: string;
-// 	description: string;
-// 	src?: string;
-// 	width: number;
-// 	height: number;
-// 	type: 'video';
-// 	poster?: string;
-// 	sources?: Array<{ src: string; type: string }>;
-// };
 
 type GalleryGridType = {
 	data: Slide[];
@@ -30,7 +21,7 @@ export const GalleryGrid = ({ data }: GalleryGridType) => {
 	const [isMounted, setIsMounted] = useState<boolean>(false);
 	const [index, setIndex] = useState<number>(-1);
 
-	console.log(data);
+	// console.log(data);
 
 	const handleClickImage = (index: number) => {
 		setIndex(index);
@@ -41,7 +32,12 @@ export const GalleryGrid = ({ data }: GalleryGridType) => {
 	}, [isMounted]);
 
 	if (!isMounted) {
-		return null;
+		return (
+			<div className="flex items-center justify-center gap-1 text-xl py-4">
+				<Loader2 className="size-4 animate-spin" />
+				<span>Loading...</span>
+			</div>
+		);
 	}
 
 	return (
@@ -57,6 +53,8 @@ export const GalleryGrid = ({ data }: GalleryGridType) => {
 									style={{ marginRight: 100 }}
 									width={slide.width}
 									height={slide.height}
+									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+									// @ts-expect-error
 									src={slide.type ? slide.poster : slide.src}
 									alt={slide.title as string}
 								/>

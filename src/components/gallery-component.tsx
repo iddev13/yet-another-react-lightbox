@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Section } from './section';
 import { GalleryGrid } from './gallery-grid';
-import { advancedSlides } from '@/data/slides';
+import { advancedSlides } from '@/constants';
 import { Button } from '@/components/ui/button';
 
 type GalleryComponentType = {
